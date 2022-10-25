@@ -11,6 +11,11 @@ jobs:
           curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: getzola/zola
+
       - name: Build
         run: |
           rustup target add x86_64-unknown-linux-gnu
