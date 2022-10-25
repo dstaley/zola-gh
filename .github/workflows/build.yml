@@ -1,0 +1,22 @@
+name: Build Zola binaries
+on: workflow_dispatch
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    container: amazonlinux:2
+    steps:
+      - name: Install Rust
+        run: |
+          curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Build
+        run: |
+          rustup target add x86_64-unknown-linux-gnu
+          cargo build --release --target x86_64-unknown-linux-gnu
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: target/x86_64-unknown-linux-gnu/release/
