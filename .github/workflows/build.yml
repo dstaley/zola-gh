@@ -2,7 +2,7 @@ name: Build Zola binaries
 on: workflow_dispatch
 
 jobs:
-  job:
+  build:
     runs-on: ubuntu-latest
     container: amazonlinux:2
     steps:
@@ -30,3 +30,18 @@ jobs:
         with:
           name: build
           path: target/x86_64-unknown-linux-gnu/release/zola
+  run:
+    needs: build
+    runs-on: ubuntu-latest
+    container: amazonlinux:2
+    steps:
+      - name: Download binary
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      
+      - name: Print version
+        run: ./zola --version
+      
+      - name: Print glibc symbols
+        run: objdump -T zola | grep GLIBC
