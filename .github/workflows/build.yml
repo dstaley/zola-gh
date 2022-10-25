@@ -9,7 +9,7 @@ jobs:
       - name: Install dependencies
         run: |
           yum update -y
-          yum install -y git tar
+          yum install -y git tar gcc
 
       - name: Install Rust
         run: |
