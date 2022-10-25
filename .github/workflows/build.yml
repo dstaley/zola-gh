@@ -35,6 +35,11 @@ jobs:
     runs-on: ubuntu-latest
     container: amazonlinux:2
     steps:
+      - name: Install dependencies
+        run: |
+          yum update -y
+          yum install -y binutils
+
       - name: Download binary
         uses: actions/download-artifact@v3
         with:
