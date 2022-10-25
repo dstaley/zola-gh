@@ -39,9 +39,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-      
-      - name: Print version
-        run: ./zola --version
+
+      - name: Fix permissions and print version
+        run: |
+         chmod +x zola
+         ./zola --version
       
       - name: Print glibc symbols
         run: objdump -T zola | grep GLIBC
