@@ -6,6 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     container: amazonlinux:2
     steps:
+      - name: Install dependencies
+        run: |
+          yum update -y
+          yum install -y git tar
+
       - name: Install Rust
         run: |
           curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
